@@ -205,7 +205,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             HttpClient httpclient = new DefaultHttpClient();
 
             HttpGet request = new HttpGet();
-            URI website = new URI("http://192.168.1.102:8888/location_update.php?time='" + times + "'&lat=" + latt + "&lng=" + lonn + "&speed=" + speed + "&tram=" + selected);
+            URI website = new URI("http://trammu.com/position/location_update.php?time='" + times + "'&lat=" + latt + "&lng=" + lonn + "&speed=" + speed + "&tram=" + selected);
             request.setURI(website);
             HttpResponse response = httpclient.execute(request);
             BufferedReader in = new BufferedReader(new InputStreamReader(
