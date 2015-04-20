@@ -41,19 +41,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     LocationManager myLocationManager;
     Button btn_start;
     Button btn_stop;
-    TextView ime;
     String latt;
     String lonn;
     String speed = "0";
-    //final String SERVER_IP = "192.168.42.130";
-    String SERVER_IP = "";
     MyThread thread = null;
     private TextView latTextView;
     private TextView lngTextView;
 
     private LocationListener mLocationListener;
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
+    private static final long MIN_TIME_BW_UPDATES = 1000;
     private MyLocationListener myLocationListener;
     private ToggleButton tram3;
     private ToggleButton tram2;
@@ -87,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        if (!this.isGpsEnable()) {
+        if (!isGpsEnable()) {
             Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
             startActivity(intent);
         }
@@ -180,18 +177,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Toast.makeText(this, "Tracker Stopped..", Toast.LENGTH_SHORT).show();
         }
     }
-    //ดึงค่าเลข  IMEI ของเครื่อง
-    public String getIme() {
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String device_id = tm.getDeviceId();
-        //return device_id;
-        return "1111111111";
-    }
-
-    // รับ GPS data
-    public String getGpsData() {
-        return latt + "," + lonn + "," + speed;
-    }
 
     // ส่งข้อมูลไปที่ SERVER ด้วย UDP
     public void sendUDPMessage(int t) throws java.io.IOException {
@@ -222,17 +207,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public boolean isGpsEnable() { // เมธอดตรวจสอบว่าเปิด GPS หรือไม่
-        boolean isgpsenable = false;
         String provider = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if (!provider.equals("")) { //GPS is Enabled
-            isgpsenable = true;
-        }
-        return isgpsenable;
+        return !provider.equals("");
     }
 
     private class MyThread extends Thread {
-        private static final int DELAY = 10000;      //delay  3 วินาที
+        private static final int DELAY = 2000;      //delay  3 วินาที
         private boolean finish = false;
         int i = 0;
 
