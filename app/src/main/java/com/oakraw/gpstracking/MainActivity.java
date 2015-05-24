@@ -41,8 +41,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     LocationManager myLocationManager;
     Button btn_start;
     Button btn_stop;
-    String latt;
-    String lonn;
+    String latt = "100";
+    String lonn = "30";
     String speed = "0";
     MyThread thread = null;
     private TextView latTextView;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private LocationListener mLocationListener;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
-    private static final long MIN_TIME_BW_UPDATES = 1000;
+    private static final long MIN_TIME_BW_UPDATES = 700;
     private MyLocationListener myLocationListener;
     private ToggleButton tram3;
     private ToggleButton tram2;
@@ -82,7 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Finding location...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        //progressDialog.show();
 
         if (!isGpsEnable()) {
             Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
@@ -213,7 +213,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private class MyThread extends Thread {
-        private static final int DELAY = 2000;      //delay  3 วินาที
+        private static final int DELAY = 1000;      //delay  3 วินาที
         private boolean finish = false;
         int i = 0;
 
